@@ -39,7 +39,7 @@ const findAll = async (req, res) => {
     const title = req.query.title;
     var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
     const data = {
-      info: "blablabla",
+      info: "Silsilah Keluarga",
     };
     const dataFams = await Families.findAll({
       order: [["familyId"]],
@@ -54,9 +54,9 @@ const findAll = async (req, res) => {
     const tempChildren = [];
     const fams = dataFams?.map((item, index) => {
       // const children = JSON.parse(item.children);
-      const children = JSON.parse(item.children)?.map((el) => `I${el}`);
+      const children = JSON.parse(item.children)?.map((el) => `${el}`);
       tempChildren.push({
-        famc: `F${item.familyId}`,
+        famc: `${item.familyId}`,
         children,
       });
       const marriage = {
@@ -69,10 +69,10 @@ const findAll = async (req, res) => {
       };
       return {
         children,
-        husb: `I${item.husbandId}`,
-        id: `F${item.familyId}`,
+        husb: `${item.husbandId}`,
+        id: `${item.familyId}`,
         marriage,
-        wife: `I${item.wifeId}`,
+        wife: `${item.wifeId}`,
       };
     });
     // console.log(tempChildren);
@@ -95,7 +95,7 @@ const findAll = async (req, res) => {
         place: item.deathPlace,
       };
       const objFamc = tempChildren.find((el) =>
-        el.children.includes(`I${item.individualId}`)
+        el.children?.includes(`${item.individualId}`)
       );
 
       return {
@@ -104,13 +104,13 @@ const findAll = async (req, res) => {
         famc: objFamc?.famc ?? "",
         fams:
           item.husband.length > 0
-            ? [`F${item.husband[0]?.familyId}`]
+            ? [`${item.husband[0]?.familyId}`]
             : item.wife.length > 0
-            ? [`F${item.wife[0]?.familyId}`]
-            : [],
+              ? [`${item.wife[0]?.familyId}`]
+              : [],
         firstName: item.fullName,
-        id: `I${item.individualId}`,
-        lastName: "xxx",
+        id: `${item.individualId}`,
+        lastName: "",
         sex: item.sex,
       };
     });
