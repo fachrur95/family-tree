@@ -5,6 +5,8 @@ module.exports = (app) => {
     findAllPublished,
     findOne,
     update,
+    updateParent,
+    updateFamily,
     destroy,
     deleteAll,
   } = require("../controllers/diagrams.controller.js");
@@ -25,6 +27,10 @@ module.exports = (app) => {
 
   // Update a Tutorial with id
   router.put("/:id", update);
+
+  router.put("/parent/:id", updateParent);
+
+  router.put("/family/:id", updateFamily);
 
   // Delete a Tutorial with id
   router.delete("/:id", destroy);

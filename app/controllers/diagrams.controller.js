@@ -155,7 +155,58 @@ const findOne = (req, res) => {
 };
 
 // Update a Families by the id in the request
+// UPDATE FOR INDIVIDUAL
 const update = (req, res) => {
+  const id = req.params.id;
+
+  Families.update(req.body, {
+    where: { id: id },
+  })
+    .then((num) => {
+      if (num == 1) {
+        res.json({
+          message: "Families was updated successfully.",
+        });
+      } else {
+        res.json({
+          message: `Cannot update Families with id=${id}. Maybe Families was not found or req.body is empty!`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Error updating Families with id=" + id,
+      });
+    });
+};
+
+// UPDATE FOR PARENT
+const updateParent = (req, res) => {
+  const id = req.params.id;
+
+  Families.update(req.body, {
+    where: { id: id },
+  })
+    .then((num) => {
+      if (num == 1) {
+        res.json({
+          message: "Families was updated successfully.",
+        });
+      } else {
+        res.json({
+          message: `Cannot update Families with id=${id}. Maybe Families was not found or req.body is empty!`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Error updating Families with id=" + id,
+      });
+    });
+};
+
+// UPDATE FOR FAMILY
+const updateFamily = (req, res) => {
   const id = req.params.id;
 
   Families.update(req.body, {
@@ -238,6 +289,8 @@ const findAllPublished = (req, res) => {
 module.exports = {
   create,
   update,
+  updateParent,
+  updateFamily,
   findAll,
   findOne,
   destroy,
